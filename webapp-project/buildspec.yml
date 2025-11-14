@@ -7,6 +7,8 @@ phases:
 
   pre_build:
     commands:
+      - echo "Moving into project folder"
+      - cd webapp-project
       - echo "Logging in to AWS CodeArtifact..."
       - CODEARTIFACT_AUTH_TOKEN=$(aws codeartifact get-authorization-token --domain devops --domain-owner 939068521677 --region ap-south-1 --query authorizationToken --output text)
       - export CODEARTIFACT_AUTH_TOKEN
@@ -23,5 +25,4 @@ phases:
 
 artifacts:
   files:
-    - target/*.war
-  discard-paths: no
+    - webapp-project/target/*.war
