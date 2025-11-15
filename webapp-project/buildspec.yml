@@ -2,27 +2,16 @@ version: 0.2
 
 phases:
   install:
-    runtime-versions:
-      java: corretto8
-
-  pre_build:
     commands:
-      - echo "Moving into project folder"
-      - cd webapp-project
-      - echo "Logging in to AWS CodeArtifact..."
-      - CODEARTIFACT_AUTH_TOKEN=$(aws codeartifact get-authorization-token --domain devops --domain-owner 939068521677 --region ap-south-1 --query authorizationToken --output text)
-      - export CODEARTIFACT_AUTH_TOKEN
-
+      - echo "Installing Maven"
+      - mvn --version
   build:
     commands:
-      - echo "Build started on `date`"
-      - mvn clean install -s settings.xml
-
-  post_build:
-    commands:
-      - echo "Build completed on `date`"
-      - mvn package -s settings.xml
-
+      - echo "Building WAR file"
+      - mvn clean package
 artifacts:
   files:
-    - webapp-project/target/*.war
+    - appspec.yml
+    - target/webapp.war
+    - scripts/restart_tomcat.sh
+  discard-paths: yes
