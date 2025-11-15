@@ -1,14 +1,10 @@
 version: 0.2
 
 phases:
-  install:
-    commands:
-      - echo "Installing Maven"
-      - mvn --version
   build:
     commands:
-      - echo "Building WAR file"
-      - mvn clean package
+      - mvn package
+
 artifacts:
   files:
     - appspec.yml
