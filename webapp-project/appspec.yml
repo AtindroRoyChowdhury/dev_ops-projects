@@ -1,0 +1,12 @@
+version: 0.0
+os: linux
+
+files:
+  - source: target/webapp.war
+    destination: /var/lib/tomcat9/webapps/
+
+hooks:
+  AfterInstall:
+    - location: scripts/restart_tomcat.sh
+      timeout: 180
+      runas: root
